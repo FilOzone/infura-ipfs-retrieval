@@ -30,15 +30,13 @@ require no context beyond your Infura credentials.
 See what your account holds first (writes `roots.txt`, downloads nothing):
 
 ```bash
-npx infura-rescue --project-id <ID> --project-secret <SECRET> --list-only
+npx infura-rescue@0.1.0 --project-id <ID> --project-secret <SECRET> --list-only
 ```
-
-<!-- TODO: confirm final npm package name before publishing the guide -->
 
 Then run the full rescue:
 
 ```bash
-npx infura-rescue --project-id <ID> --project-secret <SECRET>
+npx infura-rescue@0.1.0 --project-id <ID> --project-secret <SECRET>
 ```
 
 The script lists every pin in your account, walks each one block by block in
