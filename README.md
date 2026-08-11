@@ -30,13 +30,13 @@ require no context beyond your Infura credentials.
 See what your account holds first (writes `roots.txt`, downloads nothing):
 
 ```bash
-npx infura-rescue@0.1.0 --project-id <ID> --project-secret <SECRET> --list-only
+npx infura-rescue@0.1.1 --project-id <ID> --project-secret <SECRET> --list-only
 ```
 
 Then run the full rescue:
 
 ```bash
-npx infura-rescue@0.1.0 --project-id <ID> --project-secret <SECRET>
+npx infura-rescue@0.1.1 --project-id <ID> --project-secret <SECRET>
 ```
 
 The script lists every pin in your account, walks each one block by block in
@@ -58,8 +58,8 @@ or deduplicate backups.
   unreachable; re-run to retry. A block Infura no longer serves cannot be
   recovered after August 15, so re-run until clean, today.
 - **Millions of pins?** Accounts at that scale can exceed what the pin
-  listing handles in one response. If `--list-only` fails or hangs, contact
-  us instead of retrying.. that size deserves a scoped conversation anyway.
+  listing handles in one response. If `--list-only` fails or hangs, [contact
+  us](https://filecoin.cloud/contact) instead of retrying.. that size deserves a scoped conversation anyway.
 - **Unusual content?** Content hashed or encoded in formats the script cannot
   check locally is still downloaded and saved, and listed in
   `unverified-blocks.txt` (with `needs-review.txt` naming the affected
@@ -97,7 +97,7 @@ can be driven by an agent:
 
 Storage costs about $4.55 per TB per month (two replicas). Data sets over
 500 GiB, or anything you would rather scope with a human, are welcome through
-the contact form. <!-- TODO: contact URL + landing page URL when live -->
+the [contact form](https://filecoin.cloud/contact).
 
 ## If you only want your files (CIDs not preserved)
 
@@ -120,6 +120,6 @@ lets step 2 preserve every existing link to your content.
 
 ## Questions
 
-<!-- TODO: support/contact channel before publishing -->
 If a run fails in a way re-running does not fix, or your data set is too large
-to finish in time, contact us and bring your `roots.txt` and the error output.
+to finish in time, [contact us](https://filecoin.cloud/contact) and bring your
+`roots.txt` and the error output.

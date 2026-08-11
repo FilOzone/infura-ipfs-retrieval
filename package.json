@@ -1,6 +1,6 @@
 {
   "name": "infura-rescue",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Download all pinned IPFS data from an Infura account to CAR files before the Aug 15 2026 shutdown, preserving CIDs.",
   "type": "module",
   "bin": {
