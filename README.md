@@ -15,8 +15,21 @@ This guide gets your data out in two independent steps:
    retrievable over IPFS under the same CIDs. No deadline, since the data is
    already safe on your disk.
 
-You can hand this page to an AI agent: the steps below are complete and
-require no context beyond your Infura credentials.
+## Fastest path: hand this to your agent
+
+Set your credentials as environment variables (never paste secrets into a
+chat window), then give your AI agent this prompt:
+
+> My Infura IPFS account shuts down August 15. Rescue my data: fetch
+> https://raw.githubusercontent.com/FilOzone/infura-rescue/main/README.md
+> and follow it exactly. My credentials are already set as
+> INFURA_PROJECT_ID and INFURA_PROJECT_SECRET environment variables. Run
+> the rescue now, re-run until it reports clean, and do not start the
+> Filecoin storage step without asking me first.
+
+The steps below are complete and require no context beyond your
+credentials, so the agent needs nothing else. Prefer doing it yourself?
+Keep reading.
 
 ## What you need
 
