@@ -7,7 +7,7 @@ on:
 
 permissions:
   contents: read
-  id-token: write # provenance signing
+  id-token: write # OIDC for trusted publishing + provenance
 
 jobs:
   publish:
@@ -18,7 +18,6 @@ jobs:
         with:
           node-version: 22
           registry-url: https://registry.npmjs.org
+      - run: npm install -g npm@latest # OIDC trusted publishing needs npm 11.5+
       - run: npm ci
-      - run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: npm publish # auth via trusted publisher (OIDC); provenance is automatic
