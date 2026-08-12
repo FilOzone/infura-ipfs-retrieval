@@ -96,13 +96,11 @@ keeps every CID retrievable over public IPFS gateways (existing links keep
 working) while storage providers in the Filecoin network hold your data and
 prove it onchain periodically.
 
-> **Warning: never re-upload your files with an `add`-style command.**
-> Infura added your data with an older chunking configuration, so re-adding
-> the same files today (`ipfs add`, or any pinning service's upload button)
-> produces **different CIDs** and silently breaks every existing link to
-> your content. Preserving CIDs is the point of this rescue: only use tools
-> that carry your rescued blocks over unchanged. `ipfs2foc` (below) does
-> this by design.
+To keep your CIDs, store the rescued data as-is rather than re-adding the
+plain files. Infura added your data with an older chunking configuration,
+so re-adding the same files today (`ipfs add`, or a pinning service's
+upload button) would produce different CIDs, and existing links would stop
+resolving. `ipfs2foc` (below) carries your rescued blocks over unchanged.
 
 ### First, a funded wallet
 
