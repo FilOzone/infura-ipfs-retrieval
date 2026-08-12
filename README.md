@@ -98,12 +98,11 @@ prove it onchain periodically.
 
 > **Warning: never re-upload your files with an `add`-style command.**
 > Infura added your data with an older chunking configuration, so re-adding
-> the same files today (`ipfs add`, `filecoin-pin add`, or any pinning
-> service's upload button) produces **different CIDs** and silently breaks
-> every existing link to your content. Preserving CIDs is the point of this
-> rescue: only use tools that carry your rescued blocks over unchanged.
-> `ipfs2foc` (below) does this by design; if you use `filecoin-pin` directly,
-> use `filecoin-pin import <file>.car`, never `add`.
+> the same files today (`ipfs add`, or any pinning service's upload button)
+> produces **different CIDs** and silently breaks every existing link to
+> your content. Preserving CIDs is the point of this rescue: only use tools
+> that carry your rescued blocks over unchanged. `ipfs2foc` (below) does
+> this by design.
 
 ### First, a funded wallet
 
@@ -167,6 +166,17 @@ ipfs --api /dns/ipfs.infura.io/tcp/5001/https --api-auth basic:<ID>:<SECRET> get
 
 The script above is the better default: it keeps CIDs intact, which is what
 lets step 2 preserve every existing link to your content.
+
+## Caveats
+
+[`filecoin-pin`](https://github.com/filecoin-project/filecoin-pin) is the
+recommended IPFS+Filecoin CLI for now (step 2 already uses it for payment
+setup). If you upload with it, use only `filecoin-pin import` whenever
+same-CID resolution is important (as it is for this rescue): its `add`
+command re-chunks files and produces new CIDs. This guide recommends
+`ipfs2foc` because it has been specifically optimized to reduce the
+onboarding cost of large data sets while keeping same-CID resolution; that
+capability will eventually land in `filecoin-pin` itself.
 
 ## Questions
 
