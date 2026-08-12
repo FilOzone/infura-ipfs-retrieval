@@ -95,18 +95,13 @@ Your data is safe on disk, but a laptop is not a storage service. Filecoin
 Onchain Cloud keeps every CID retrievable over public IPFS gateways (existing links keep working) while storage providers prove on-chain that
 they hold your data.
 
-CAR files are exactly what Filecoin tooling consumes, and both tools below
-can be driven by an agent:
-
-- [`filecoin-pin`](https://github.com/filecoin-project/filecoin-pin): set up
-  payments, then upload each rescue CAR as-is with `filecoin-pin import`
-  (use `import`, not `add`: `add` re-chunks files and would change your CIDs;
-  `import` stores the CAR exactly as rescued).
-- [`ipfs2foc`](https://github.com/FilOzone/ipfs2foc): bulk migration for
-  large inventories (your `roots.txt`): packs small items into ~1 GiB units
-  to keep on-chain costs low, streams to two storage providers, and produces
-  a verifiable receipt. See its
-  [user guide](https://github.com/FilOzone/ipfs2foc/blob/main/docs/user-guide.md).
+Use [`ipfs2foc`](https://github.com/FilOzone/ipfs2foc) to migrate your
+rescue output. Point it at your `roots.txt` and the CAR files: it packs
+small items into ~1 GiB units to keep on-chain costs low, streams everything
+to two storage providers, and produces a verifiable receipt. Your CIDs stay
+exactly as rescued. It can be driven by an agent. See its
+[user guide](https://github.com/FilOzone/ipfs2foc/blob/main/docs/user-guide.md)
+to get started.
 
 Storage costs about $4.55 per TB per month (two replicas). Data sets over
 500 GiB, or anything you would rather scope with a human, are welcome through
