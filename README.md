@@ -91,19 +91,24 @@ import it into any IPFS node: `ipfs dag import <file>.car`.
 
 ## Step 2: store it on Filecoin
 
-Your data is safe on disk, but a laptop is not a storage service. Filecoin keeps every CID retrievable over public IPFS gateways (existing links keep working) while storage providers in the Filecoin hold your data and prove that onchain periodically.
+Your data is safe on disk, but a laptop is not a storage service. Filecoin
+keeps every CID retrievable over public IPFS gateways (existing links keep
+working) while storage providers in the Filecoin network hold your data and
+prove it onchain periodically.
 
 Use [`ipfs2foc`](https://github.com/FilOzone/ipfs2foc) to migrate your
 rescue output. Point it at your `roots.txt` and the CAR files: it packs
-small items into ~1 GiB units to keep the onboarding costs low, streams everything
+small items into ~1 GiB units to keep the onboarding costs low, streams
+everything
 to two storage providers, and produces a verifiable receipt. Your CIDs stay
 exactly as rescued. It can be driven by an agent. See its
 [user guide](https://github.com/FilOzone/ipfs2foc/blob/main/docs/user-guide.md)
 to get started.
 
-Storage costs about $5 per TB per month (two replicas) plus one-time onboarding cost. Data sets over
-500 GiB, or anything you would rather scope with a human, are welcome through
-the [contact form](https://filecoin.cloud/contact).
+Storage costs about $5 per TB per month (two replicas) plus a one-time
+onboarding cost. Data sets over 500 GiB, or anything you would rather scope
+with a human, are welcome through the
+[contact form](https://filecoin.cloud/contact).
 
 ## If you only want your files (CIDs not preserved)
 
