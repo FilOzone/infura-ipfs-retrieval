@@ -96,14 +96,50 @@ keeps every CID retrievable over public IPFS gateways (existing links keep
 working) while storage providers in the Filecoin network hold your data and
 prove it onchain periodically.
 
+To keep your CIDs, store the rescued data as-is rather than re-adding the
+plain files. Infura added your data with an older chunking configuration,
+so re-adding the same files today (`ipfs add`, or a pinning service's
+upload button) would produce different CIDs, and existing links would stop
+resolving. `ipfs2foc` (below) carries your rescued blocks over unchanged.
+
+### First, a funded wallet
+
+Storage is paid onchain, so step 2 needs an Ethereum-style (`0x`) wallet on
+Filecoin mainnet holding two tokens: a little **FIL** for transaction fees
+(0.05-0.1 FIL covers many transactions) and **USDFC** (the USD stablecoin
+storage is priced in) for the storage itself.
+
+1. **Get FIL**: withdraw from an exchange straight to your `0x` address, or
+   bridge from Ethereum, Base, Arbitrum, and most other chains with
+   [Squid Router](https://app.squidrouter.com).
+2. **Get USDFC**: swap some of that FIL on
+   [SushiSwap on Filecoin](https://www.sushi.com/filecoin/swap?token0=NATIVE&token1=0x80b98d3aa09ffff255c3ba4a241111ff1262f045),
+   or mint it against FIL collateral at
+   [usdfc.secured.finance](https://usdfc.secured.finance).
+3. **Set up payments** (one-time deposit and approvals):
+
+   ```bash
+   export PRIVATE_KEY=0x...   # the wallet's key; keep it out of version control
+   npx filecoin-pin@latest payments setup --auto
+   npx filecoin-pin@latest payments status   # confirm balance and approvals
+   ```
+
+### Then migrate with ipfs2foc
+
 Use [`ipfs2foc`](https://github.com/FilOzone/ipfs2foc) to migrate your
-rescue output. Point it at your `roots.txt` and the CAR files: it packs
-small items into ~1 GiB units to keep the onboarding costs low, streams
-everything
-to two storage providers, and produces a verifiable receipt. Your CIDs stay
-exactly as rescued. It can be driven by an agent. See its
+rescue output. Give it your `roots.txt` as its CID list (`--cids roots.txt`):
+it packs small items into ~1 GiB units to keep the onboarding costs low,
+streams everything to two storage providers, and produces a verifiable
+receipt. Your CIDs stay exactly as rescued. It can be driven by an agent.
+See its
 [user guide](https://github.com/FilOzone/ipfs2foc/blob/main/docs/user-guide.md)
 to get started.
+
+`ipfs2foc` reads each CID from an IPFS gateway rather than from your CAR
+files. If your content stops being served anywhere after the shutdown,
+import the rescue CARs into a local IPFS node (`ipfs dag import`) and point
+`ipfs2foc` at that node's gateway with `--gateway`, checking it first with
+`ipfs2foc probe`.
 
 Storage costs about $5 per TB per month (two replicas) plus a one-time
 onboarding cost. Data sets over 500 GiB, or anything you would rather scope
@@ -128,6 +164,17 @@ ipfs --api /dns/ipfs.infura.io/tcp/5001/https --api-auth basic:<ID>:<SECRET> get
 
 The script above is the better default: it keeps CIDs intact, which is what
 lets step 2 preserve every existing link to your content.
+
+## Caveats
+
+[`filecoin-pin`](https://github.com/filecoin-project/filecoin-pin) is the
+recommended IPFS+Filecoin CLI for now (step 2 already uses it for payment
+setup). If you upload with it, use only `filecoin-pin import` whenever
+same-CID resolution is important (as it is for this rescue): its `add`
+command re-chunks files and produces new CIDs. This guide recommends
+`ipfs2foc` because it has been specifically optimized to reduce the
+onboarding cost of large data sets while keeping same-CID resolution; that
+capability will eventually land in `filecoin-pin` itself.
 
 ## Questions
 
