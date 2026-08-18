@@ -176,6 +176,13 @@ command re-chunks files and produces new CIDs. This guide recommends
 onboarding cost of large data sets while keeping same-CID resolution; that
 capability will eventually land in `filecoin-pin` itself.
 
+## Install analytics
+
+This package uses [Scarf](https://scarf.sh) to collect basic install
+statistics (OS, versions) that help us understand usage. No IPFS data or
+credentials are ever collected. To opt out, set `SCARF_ANALYTICS=false` in
+your environment before installing.
+
 ## Questions
 
 If a run fails in a way re-running does not fix, or your data set is too large
