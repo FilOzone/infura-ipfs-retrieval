@@ -4,7 +4,7 @@
   "description": "Download all pinned IPFS data from an Infura account to CAR files before the Aug 15 2026 shutdown, preserving CIDs.",
   "type": "module",
   "bin": {
-    "infura-ipfs-retrieval": "./infura-ipfs-retrieval.mjs"
+    "infura-ipfs-retrieval": "infura-ipfs-retrieval.mjs"
   },
   "engines": {
     "node": ">=18"
