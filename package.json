@@ -1,10 +1,10 @@
 {
-  "name": "infura-rescue",
-  "version": "0.1.1",
+  "name": "infura-ipfs-retrieval",
+  "version": "0.2.0",
   "description": "Download all pinned IPFS data from an Infura account to CAR files before the Aug 15 2026 shutdown, preserving CIDs.",
   "type": "module",
   "bin": {
-    "infura-rescue": "./infura-rescue.mjs"
+    "infura-ipfs-retrieval": "infura-ipfs-retrieval.mjs"
   },
   "engines": {
     "node": ">=18"
@@ -12,10 +12,10 @@
   "license": "Apache-2.0 OR MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/FilOzone/infura-rescue.git"
+    "url": "git+https://github.com/FilOzone/infura-ipfs-retrieval.git"
   },
   "files": [
-    "infura-rescue.mjs",
+    "infura-ipfs-retrieval.mjs",
     "README.md",
     "LICENSE.md"
   ],

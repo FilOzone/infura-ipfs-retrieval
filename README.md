@@ -1,4 +1,4 @@
-# Rescue your Infura IPFS data before August 15
+# Retrieve your Infura IPFS data before August 15
 
 Infura is shutting down its IPFS service. On **August 15, 2026** the IPFS API
 (`ipfs.infura.io:5001`) and all `*.infura-ipfs.io` dedicated gateways go
@@ -20,11 +20,11 @@ This guide gets your data out in two independent steps:
 Set your credentials as environment variables (never paste secrets into a
 chat window), then give your AI agent this prompt:
 
-> My Infura IPFS account shuts down August 15. Rescue my data: fetch
-> https://raw.githubusercontent.com/FilOzone/infura-rescue/main/README.md
+> My Infura IPFS account shuts down August 15. Retrieve my data: fetch
+> https://raw.githubusercontent.com/FilOzone/infura-ipfs-retrieval/main/README.md
 > and follow it exactly. My credentials are already set as
 > INFURA_PROJECT_ID and INFURA_PROJECT_SECRET environment variables. Run
-> the rescue now, re-run until it reports clean, and do not start the
+> the retrieval now, re-run until it reports clean, and do not start the
 > Filecoin storage step without asking me first.
 
 The steps below are complete and require no context beyond your
@@ -43,13 +43,13 @@ Keep reading.
 See what your account holds first (writes `roots.txt`, downloads nothing):
 
 ```bash
-npx infura-rescue@0.1.1 --project-id <ID> --project-secret <SECRET> --list-only
+npx infura-ipfs-retrieval@0.2.0 --project-id <ID> --project-secret <SECRET> --list-only
 ```
 
-Then run the full rescue:
+Then run the full retrieval:
 
 ```bash
-npx infura-rescue@0.1.1 --project-id <ID> --project-secret <SECRET>
+npx infura-ipfs-retrieval@0.2.0 --project-id <ID> --project-secret <SECRET>
 ```
 
 The script lists every pin in your account, walks each one block by block in
@@ -59,7 +59,7 @@ depth-first order, cryptographically verifies every block against its CID
 `infura-rescue-out/cars/`. A CAR is the standard IPFS archive format: your
 content plus its exact structure, which is what keeps **your CIDs unchanged**.
 This is not a download-and-re-add, which would produce new CIDs. Running
-the rescue twice produces byte-identical archives, so you can safely compare
+the retrieval twice produces byte-identical archives, so you can safely compare
 or deduplicate backups.
 
 - **Interrupted?** Re-run the same command; completed items are skipped.
@@ -96,11 +96,11 @@ keeps every CID retrievable over public IPFS gateways (existing links keep
 working) while storage providers in the Filecoin network hold your data and
 prove it onchain periodically.
 
-To keep your CIDs, store the rescued data as-is rather than re-adding the
+To keep your CIDs, store the retrieved data as-is rather than re-adding the
 plain files. Infura added your data with an older chunking configuration,
 so re-adding the same files today (`ipfs add`, or a pinning service's
 upload button) would produce different CIDs, and existing links would stop
-resolving. `ipfs2foc` (below) carries your rescued blocks over unchanged.
+resolving. `ipfs2foc` (below) carries your retrieved blocks over unchanged.
 
 ### First, a funded wallet
 
@@ -127,17 +127,17 @@ storage is priced in) for the storage itself.
 ### Then migrate with ipfs2foc
 
 Use [`ipfs2foc`](https://github.com/FilOzone/ipfs2foc) to migrate your
-rescue output. Give it your `roots.txt` as its CID list (`--cids roots.txt`):
+retrieval output. Give it your `roots.txt` as its CID list (`--cids roots.txt`):
 it packs small items into ~1 GiB units to keep the onboarding costs low,
 streams everything to two storage providers, and produces a verifiable
-receipt. Your CIDs stay exactly as rescued. It can be driven by an agent.
+receipt. Your CIDs stay exactly as retrieved. It can be driven by an agent.
 See its
 [user guide](https://github.com/FilOzone/ipfs2foc/blob/main/docs/user-guide.md)
 to get started.
 
 `ipfs2foc` reads each CID from an IPFS gateway rather than from your CAR
 files. If your content stops being served anywhere after the shutdown,
-import the rescue CARs into a local IPFS node (`ipfs dag import`) and point
+import the retrieved CARs into a local IPFS node (`ipfs dag import`) and point
 `ipfs2foc` at that node's gateway with `--gateway`, checking it first with
 `ipfs2foc probe`.
 
@@ -170,7 +170,7 @@ lets step 2 preserve every existing link to your content.
 [`filecoin-pin`](https://github.com/filecoin-project/filecoin-pin) is the
 recommended IPFS+Filecoin CLI for now (step 2 already uses it for payment
 setup). If you upload with it, use only `filecoin-pin import` whenever
-same-CID resolution is important (as it is for this rescue): its `add`
+same-CID resolution is important (as it is for this retrieval): its `add`
 command re-chunks files and produces new CIDs. This guide recommends
 `ipfs2foc` because it has been specifically optimized to reduce the
 onboarding cost of large data sets while keeping same-CID resolution; that

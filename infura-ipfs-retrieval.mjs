@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-// infura-rescue — download all pinned IPFS data from an Infura account to
+// infura-ipfs-retrieval — download all pinned IPFS data from an Infura account to
 // CAR files on disk, preserving CIDs (block-level copy, no re-chunking).
 //
 // Usage:
-//   npx infura-rescue --project-id <ID> --project-secret <SECRET> [options]
+//   npx infura-ipfs-retrieval --project-id <ID> --project-secret <SECRET> [options]
 //
 // Options:
 //   --project-id      Infura project id     (or env INFURA_PROJECT_ID)
@@ -24,7 +24,7 @@
 //
 // Blocks are verified against their CID digest when a hasher is available
 // (sha2, sha3, blake2b); anything else is downloaded and saved anyway, and
-// recorded in unverified-blocks.txt — rescue first, verify what we can.
+// recorded in unverified-blocks.txt — retrieve first, verify what we can.
 //
 // Auth is optional when --source points at a non-Infura node (for testing).
 
